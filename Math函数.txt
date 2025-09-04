@@ -1,0 +1,41 @@
+C库常用函数
+math.h
+
+绝对值 
+int abs(int x) 求整数x的绝对值
+double fabs(double num) 求num的绝对值
+
+指数
+double exp(double x) 求e的x次幂
+
+对数
+double log(double x) 计算x的自然对数(以e为底)
+double log10(double x) 计算x的常用对数(以10为底)
+
+x的y次幂
+double pow(double x,double y) 计算以x为底数的y次幂
+
+余数
+double fmod(double x) 求x/y的余数
+
+平方根
+double sqrt(double x) 求x的平方根，要求x > 0
+
+三角函数
+double sin(double x) 求x的正弦函数
+double cos(double x) 求x的余弦函数
+double tan(double x) 求x的正切函数
+
+三角函数中的参数x应为弧度数，而不应是角度数
+弧度数 = 角度数 * PI / 180
+
+
+
+
+
+
+
+
+
+
+
