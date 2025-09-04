@@ -1,0 +1,44 @@
+git的使用
+
+命令行:
+git version 查看Git的安装版本号
+
+clear 清除命令行
+
+pwd 显示当前目录的路径
+
+ls 列出可见文件和目录
+
+ls -a 列出隐藏及可见的文件和目录
+
+cd 变更目录
+
+cd .. 返回目录上一级
+
+mkdir 创建目录
+ 
+rm -d 文件夹名称  删除空文件夹
+
+git config --global --list 列出Git全局配置文件中的变量及其值
+
+git config --global user.name "" 在Git全局配置文件中设置你的姓名
+
+git config --global user.email "@qq.com" 在Git全局配置文件中设置你的电子邮件地址
+
+git init 初始化一个Git仓库,默认master分支
+
+git init -b 分支名 初始化一个Git仓库，并把初始分支的名称设为<branch_name>
+
+git status 显示工作目录和暂存区域的状态
+	On branch main 在主分支上 注意有时候main是master分支，不能随便改分支名称，否则可能导致提交历史丢失
+	Untracked files:未跟踪文件
+
+git add <>  git add <><><> git add -A  把文件放到暂存区域内
+	A表示all的意思，建议不要一次性提交所有文件
+
+git commit -m "" 创建一个提交，指定提交消息
+
+git log 按时间倒序列出本地仓库中的提交 包含:1.提交散列2.作者的名字和电子邮件地址3.提交的日期和时间4.提交消息
+
+Git Bash更改默认打开位置，找到Git Bash的文件位置，右键选择属性，找到“目标”字段，删除命令结尾 --cd-to-home，将起始位置更改为D盘，如果想改到D盘里面的文件，加一个“\”就可以往下一级目录
+
