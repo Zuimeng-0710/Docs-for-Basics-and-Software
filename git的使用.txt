@@ -42,3 +42,4 @@ git log 按时间倒序列出本地仓库中的提交 包含:1.提交散列2.作
 
 Git Bash更改默认打开位置，找到Git Bash的文件位置，右键选择属性，找到“目标”字段，删除命令结尾 --cd-to-home，将起始位置更改为D盘，如果想改到D盘里面的文件，加一个“\”就可以往下一级目录
 
+git push -u origin main 如果你是master分支的，就把main分支改成master就可以了
