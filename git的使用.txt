@@ -42,4 +42,99 @@ git log 按时间倒序列出本地仓库中的提交 包含:1.提交散列2.作
 
 Git Bash更改默认打开位置，找到Git Bash的文件位置，右键选择属性，找到“目标”字段，删除命令结尾 --cd-to-home，将起始位置更改为D盘，如果想改到D盘里面的文件，加一个“\”就可以往下一级目录
 
-git push -u origin main 如果你是master分支的，就把main分支改成master就可以了
+//这里就到了git bash 关联github仓库
+
+第一步：生成SSH密钥并配置代理----你需要有代理，发送文件速度就会快很多，有https协议和ssh协议
+	SSH 协议比 HTTPS 更安全、更方便（配置好后无需每次输入密码）。
+
+1.生成SSH密钥对
+	打开git bash，执行以下命令
+	ssh-keygen -t ed25519 -C "你的GitHub注册邮箱"
+
+	接下来，它会询问你密钥的保存路径，直接按回车使用默认路径 
+	(C:/Users/你的用户名/.ssh/id_ed25519 或 id_rsa)。
+
+2.启动SSH代理并添加密钥
+	SSH代理可以帮你安全地管理密钥，避免每次使用都输入passphase(密码)
+
+	# 确保 ssh-agent 在后台运行
+	eval "$(ssh-agent -s)" # 这会输出类似 Agent pid 12345 的信息
+
+	# 将你的 SSH 私钥添加到 ssh-agent 中
+	# 如果你使用的是默认的 rsa 密钥，将下面的命令中的 ed25519 改为 rsa
+	ssh-add ~/.ssh/id_ed25519
+
+3. 将 SSH 公钥添加到 GitHub
+	1.复制公钥内容：在 Git Bash 中执行以下命令，它会将公钥内容输出到屏幕上，然后你用鼠标选中内容，按 Ctrl + Insert 复制。
+
+	输入以下命令：
+	cat ~/.ssh/id_ed25519.pub
+
+	重要：复制的是 .pub 公钥文件的内容，不是私钥。公钥内容类似：ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... your_email@example.com
+
+	2.登录 GitHub：
+
+	点击右上角头像 -> Settings。
+
+	在左侧边栏中，点击 SSH and GPG keys。
+
+	点击 New SSH key。
+
+	在 "Title" 中，为这个密钥起个名字（如：My Windows PC）。
+
+	在 "Key" 中，粘贴你刚刚复制的公钥内容。
+
+	点击 Add SSH key。
+
+4. 测试 SSH 连接
+		在 Git Bash 中输入：
+	ssh -T git@github.com
+
+	你可能会看到一条警告，输入 yes 继续。
+	如果成功，你会看到如下信息：
+
+	Hi your_github_username! You've successfully authenticated, but GitHub does not provide shell access.
+
+	这表示 SSH 配置成功！
+
+第二步：创建 GitHub 仓库并进行本地配置
+1. 在 GitHub 上创建新仓库 (Create a new repository)
+	登录 GitHub，点击右上角 + -> New repository。
+
+	填写仓库名称（Repository name），例如 my-project。
+
+	选择 Public（公开）或 Private（私有）。
+
+	初始化选项：为了简化，不要勾选 "Initialize this repository with a README"（我们可以从本地推送一个已有的项目）。
+
+2. 本地 Git 环境配置（首次使用 Git 需要设置）
+这些信息会包含在你的每次提交中。
+
+	git config --global user.name "Your Name" //可以写一个你喜欢得名字
+	git config --global user.email "your_email@example.com"//可以写QQ邮箱，或者其它邮箱
+
+3. 关联本地项目与远程仓库并推送（Push）
+假设你有一个本地项目文件夹 my-project。
+
+	# 进入项目目录
+	cd /c/path/to/your/my-project
+
+	# 初始化本地 Git 仓库
+	git init
+
+	# 将所有文件添加到暂存区
+	git add .
+
+	# 提交文件
+	git commit -m "first commit"
+
+	# 添加远程仓库地址
+	# 注意：这里使用 SSH 地址（以 git@github.com: 开头）
+	git remote add origin git@github.com:your_github_username/my-project.git
+
+	# 推送代码到 GitHub（-u 选项设置上游分支，以后直接 git push 即可）
+	git push -u origin main     //注意看你的git项目用的是什么分支，就是蓝色括号的内容
+
+	# 注意：GitHub 现在的默认主分支叫 `main`，以前叫 `master`。请根据你的实际情况选择。
+	# 如果你的本地分支叫 master，则使用：git push -u origin master
+	git push -u origin main 如果你是master分支的，就把main分支改成master就可以了
